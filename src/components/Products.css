@@ -54,7 +54,7 @@ html {
 
 .products__header__user-info h2 {
     font-size: 1.4rem;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .products__header__user-info span {
@@ -66,7 +66,7 @@ html {
     justify-content: center;
     align-items: center;
     font-size: 1.4rem;
-    font-weight: 600;
+    font-weight: 500;
     gap: 5px;
 }
 
@@ -79,13 +79,34 @@ html {
 }
 
 .products__header__header-img h2 {
-    display: none;
     position: absolute;
     top: 210px;
     left: 20%;
     color: #FFFF;
     font-size: 1.8rem;
     font-weight: 700;
+}
+
+@media (min-width: 410px) {
+    .products__header__header-img h2 {
+        position: absolute;
+        top: 230px;
+        left: 15%;
+        color: #FFFF;
+        font-size: 2.4rem;
+        font-weight: 700;
+    }
+}
+
+@media (min-width: 630px) {
+    .products__header__header-img h2 {
+        position: absolute;
+        top: 300px;
+        left: 10%;
+        color: #FFFF;
+        font-size: 3.6rem;
+        font-weight: 700;
+    }
 }
 
 /* PRODUCTS MAIN */
@@ -140,6 +161,11 @@ html {
     color: #FFFF;
 }
 
+.filter-btn:focus {
+    background-color: #0ad4fa;
+    color: #FFFF;
+}
+
 .next-page-btn {
     display: none;
 }
@@ -171,6 +197,9 @@ html {
         width: 70%;
         margin: 0 auto;
     }
+    .footer-main {
+        padding: 0 80px;
+    }
 }
 
 @media (min-width: 1005px) {
@@ -198,6 +227,17 @@ html {
         width: 80%;
         margin: 0 auto;
     }
+    .footer-main {
+        padding: 0 120px;
+    }
+    .products__header__header-img h2 {
+        position: absolute;
+        top: 400px;
+        left: 10%;
+        color: #FFFF;
+        font-size: 4.8rem;
+        font-weight: 700;
+    }
 }
 
 @media (min-width: 1301px) {
@@ -208,6 +248,14 @@ html {
     .main-big {
         width: 83%;
         margin: 0 auto;
+    }
+    .products__header__header-img h2 {
+        position: absolute;
+        top: 500px;
+        left: 20%;
+        color: #FFFF;
+        font-size: 4.8rem;
+        font-weight: 700;
     }
 }
 
@@ -220,3 +268,28 @@ html {
     grid-template-columns: repeat(auto-fill, minmax(200px, 276px));
     justify-content: center;
 }
+
+/* FOOTER PRODUCTS MAIN */
+
+.footer-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-main h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.next-page-btn-footer button {
+    background-color: #FFFF;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+}  
+
+/* ------------------------- */ 
+
+

@@ -5,6 +5,7 @@ import logo from '../../cod-challenge/assets/aerolab-logo.svg'
 import header_img from '../../cod-challenge/assets/header-x2.png'
 import coin from '../../cod-challenge/assets/icons/coin.svg'
 import arrowRight from '../../cod-challenge/assets/icons/arrow-right.svg'
+import arrowLeft from '../../cod-challenge/assets/icons/arrow-left.svg'
 import axios from 'axios'
 import getConfig from '../utils/getConfig'
 import ProductDetail from './ProductDetail'
@@ -29,19 +30,12 @@ type Product = {
     _id: string
   }
 
-//   type ProductDetail = {
-//     key: string,
-//     product: Product,
-//     user: User
-// }
+const Products = ({setUser, user}: any) => {
 
-const Products = () => {
-
-    const [user, setUser] = useState<User>({} as User)
+    
     const [products, setProducts] = useState<Product[]>([])
 
     // Functions in order to get user info and products from API calls
-
     const getUserInfo = () => {
         axios.get('https://coding-challenge-api.aerolab.co/user/me', getConfig())
         .then(res => setUser(res.data))
@@ -66,28 +60,32 @@ const Products = () => {
     const [productsPerPage, setProductsPerPage] = useState(16)
 
     // Get Current Products
-
     const indexLastProduct = currentPage * productsPerPage
     const indexFirstProduct = indexLastProduct - productsPerPage
     const currentProducts: Product[] = products?.slice(indexFirstProduct, indexLastProduct)
 
     const handlePage = (): void => {
         if (currentPage === 1) {
-            setCurrentPage(2)
+            setCurrentPage(currentPage + 1)
         } else {
-            setCurrentPage(1)
+            setCurrentPage(currentPage - 1)
         }
     }
 
     // Filter btns 
     const handleLowestPrice = () => {
-        const lowestPrice = products.sort((a, b) => {
+        const lowestPrice = [...products.sort((a, b) => {
             return a.cost - b.cost
-        })
+        })]
         setProducts(lowestPrice)
     }
 
-    console.log(currentProducts)
+    const handleHighestPrice = () => {
+        const lowestPrice = [...products.sort((a, b) => {
+            return b.cost - a.cost
+        })]
+        setProducts(lowestPrice)
+    }
 
 
     return (
@@ -113,21 +111,28 @@ const Products = () => {
                             <div className='bar-line-vertical'></div>
                             <div className='products__main__sortBy-cont'>
                                 <h2>Sort by:</h2>
-                                <button className='filter-btn'>Most recent</button>
+                                <button onClick={getProducts} className='filter-btn'>Most recent</button>
                                 <button onClick={handleLowestPrice} className='filter-btn'>Lowest price</button>
-                                <button className='filter-btn'>Highest price</button>
+                                <button onClick={handleHighestPrice} className='filter-btn'>Highest price</button>
                             </div>
                         </div>
                         <div className='next-page-btn'>
-                            <button onClick={handlePage}><img src={arrowRight} alt="" /></button>
+                            <button onClick={handlePage}><img src={currentPage === 1 ? arrowRight: arrowLeft} alt="" /></button>
                         </div>
                     </div>
                     <div className='bar-line main-big'></div>
                     <div className='products__main__products-cont'>
                         {currentProducts?.map((product: Product) => (
-                            <ProductDetail key={product._id} product={product} user={user}/>
+                            <ProductDetail key={product._id} product={product} user={user} getUserInfo={getUserInfo}/>
                         ))}
                     </div>
+                    <div className='footer-main'>
+                        <h2>{currentPage * productsPerPage} of {products.length} products</h2>
+                        <div className='next-page-btn-footer'>
+                            <button onClick={handlePage}><img src={currentPage === 1 ? arrowRight: arrowLeft} alt="" /></button>
+                        </div>
+                    </div>
+                    <div className='bar-line main-big'></div>
                 </main>
             </div>
         </main>
