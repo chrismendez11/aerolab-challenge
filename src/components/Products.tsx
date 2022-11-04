@@ -33,7 +33,7 @@ type Product = {
 
 const Products = ({setUser, user}: any) => {
 
-    
+    const [allProducts, setAllProducts] = useState<Product[]>([])
     const [products, setProducts] = useState<Product[]>([])
 
     // Functions in order to get user info and products from API calls
@@ -46,6 +46,7 @@ const Products = ({setUser, user}: any) => {
     const getProducts = () => {
         axios.get('https://coding-challenge-api.aerolab.co/products', getConfig())
         .then(res => {
+            setAllProducts(res.data)
             setProducts(res.data)
         })
         .catch(err => console.log(err))
@@ -108,7 +109,7 @@ const Products = ({setUser, user}: any) => {
                     </div>
                 </header>
                 <main className='products__main'>
-                    <SearchBar setProducts={setProducts}/>
+                    <SearchBar setProducts={setProducts} allProducts={allProducts}/>
                     <div className='products__main__features'>
                         <div className='products__main__features-cont'>
                             <h2>{products.length > productsPerPage ? indexLastProduct : products.length} of {products.length} products</h2>
