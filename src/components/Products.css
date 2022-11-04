@@ -161,11 +161,6 @@ html {
     color: #FFFF;
 }
 
-.filter-btn:focus {
-    background-color: #0ad4fa;
-    color: #FFFF;
-}
-
 .next-page-btn {
     display: none;
 }

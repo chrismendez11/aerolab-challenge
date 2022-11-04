@@ -74,23 +74,51 @@ const Products = ({setUser, user}: any) => {
         }
     }
 
+    const [currentFilter, setCurrentFilter] = useState<string>('')
+
+    // First render select "Most recent" filter btn
+    useEffect(() => {
+        const currentBtn = document.getElementById('recent');
+        currentBtn!.style.background = '#0ad4fa';
+        currentBtn!.style.color = '#FFFF';
+
+        setCurrentFilter('recent')
+    }, [])
+
     // Filter btns 
-    const handleLowestPrice = () => {
+    const handleMostRecentProducts = (e: any) => {
+        getProducts()
+        changeFilterBtnColor(e)
+    }
+
+    const handleLowestPrice = (e: any) => {
         const lowestPrice = [...products.sort((a, b) => {
             return a.cost - b.cost
         })]
         setProducts(lowestPrice)
+        changeFilterBtnColor(e)
     }
 
-    const handleHighestPrice = () => {
-        const lowestPrice = [...products.sort((a, b) => {
+    const handleHighestPrice = (e: any) => {
+        const highestPrice = [...products.sort((a, b) => {
             return b.cost - a.cost
         })]
-        setProducts(lowestPrice)
+        setProducts(highestPrice)
+        changeFilterBtnColor(e)
     }
 
+    // Change Filter btn color
+    const changeFilterBtnColor = (e: any) => {
+        const lastBtn = document.getElementById(currentFilter);
+        lastBtn!.style.background = '';
+        lastBtn!.style.color = '';
 
-    console.log(products.length)
+        const currentBtn = document.getElementById(e.target.id);
+        currentBtn!.style.background = '#0ad4fa';
+        currentBtn!.style.color = '#FFFF';
+
+        setCurrentFilter(e.target.id)
+    }
 
     return (
         <main>
@@ -116,9 +144,9 @@ const Products = ({setUser, user}: any) => {
                             <div className='bar-line-vertical'></div>
                             <div className='products__main__sortBy-cont'>
                                 <h2>Sort by:</h2>
-                                <button onClick={getProducts} className='filter-btn'>Most recent</button>
-                                <button onClick={handleLowestPrice} className='filter-btn'>Lowest price</button>
-                                <button onClick={handleHighestPrice} className='filter-btn'>Highest price</button>
+                                <button onClick={handleMostRecentProducts} className='filter-btn' id='recent'>Most recent</button>
+                                <button onClick={handleLowestPrice} className='filter-btn' id='lowest'>Lowest price</button>
+                                <button onClick={handleHighestPrice} className='filter-btn' id='highest'>Highest price</button>
                             </div>
                         </div>
                         <div className='next-page-btn'>
