@@ -9,6 +9,7 @@ import arrowLeft from '../../cod-challenge/assets/icons/arrow-left.svg'
 import axios from 'axios'
 import getConfig from '../utils/getConfig'
 import ProductDetail from './ProductDetail'
+import SearchBar from './SearchBar'
 
 type User = {
     createDate: string,
@@ -88,6 +89,8 @@ const Products = ({setUser, user}: any) => {
     }
 
 
+    console.log(products.length)
+
     return (
         <main>
             <div className='products-container'>
@@ -105,9 +108,10 @@ const Products = ({setUser, user}: any) => {
                     </div>
                 </header>
                 <main className='products__main'>
+                    <SearchBar setProducts={setProducts}/>
                     <div className='products__main__features'>
                         <div className='products__main__features-cont'>
-                            <h2>{currentPage * productsPerPage} of {products.length} products</h2>
+                            <h2>{products.length > productsPerPage ? indexLastProduct : products.length} of {products.length} products</h2>
                             <div className='bar-line-vertical'></div>
                             <div className='products__main__sortBy-cont'>
                                 <h2>Sort by:</h2>
@@ -127,7 +131,7 @@ const Products = ({setUser, user}: any) => {
                         ))}
                     </div>
                     <div className='footer-main'>
-                        <h2>{currentPage * productsPerPage} of {products.length} products</h2>
+                        <h2>{products.length > productsPerPage ? indexLastProduct : products.length} of {products.length} products</h2>
                         <div className='next-page-btn-footer'>
                             <button onClick={handlePage}><img src={currentPage === 1 ? arrowRight: arrowLeft} alt="" /></button>
                         </div>
