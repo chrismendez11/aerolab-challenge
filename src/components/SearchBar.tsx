@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
+import { RootState } from '../store'
+import { useSelector, useDispatch } from 'react-redux'
 import './SearchBar.css'
+import { setInput } from '../store/slices/inputValue.slice'
+import { setIsSearchingActive } from '../store/slices/isSearchingActive'
 
 type Product = {
     category: string,
@@ -19,19 +23,21 @@ type Props = {
 
 const SearchBar = ({ setProducts, allProducts }: Props) => {
 
-    const [inputValue, setInputValue] = useState<string>('')
+    const inputValue = useSelector((state: RootState) => state.inputValue)
+    const dispatch = useDispatch()
+
 
     const handleProductSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setProducts(allProducts.filter(product => {
             return product.name.toLowerCase().includes(inputValue.toLocaleLowerCase()) || product.category.toLowerCase().includes(inputValue.toLocaleLowerCase())
-        })
-        )
+        }))
+        dispatch(setIsSearchingActive())
     }
 
     return (
         <form onSubmit={(e) => handleProductSearch(e)} className='searchBar__container'>
-            <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} type="text" placeholder='Search a product or a category...' />
+            <input value={inputValue} onChange={(e) => dispatch(setInput(e.target.value))} type="text" placeholder='Search a product or a category...' />
             <button><i className="fa-solid fa-magnifying-glass"></i></button>
         </form>
     )

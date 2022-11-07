@@ -21,6 +21,7 @@ html {
     align-content: center;
     justify-content: space-between;
     height: 100%;
+    gap: 20px;
 }
 
 .nav-logo {
@@ -34,10 +35,17 @@ html {
 }
 
 h1 {
-    font-size: 2.4rem;
+    font-size: 1.6rem;
     font-weight: 500;
-    display: flex;
+    display: none;
     align-items: center;
+}
+
+@media (min-width: 450px) {
+    h1 {
+        font-size: 1.8rem;
+        display: flex;
+    }
 }
 
 .btn__get-coins, .btn__redden-history {
@@ -59,4 +67,15 @@ h1 {
 
 .btn__redden-history {
     width: 210px;
+    display: none;
+}
+
+@media (min-width: 750px) {
+    .nav-cont {
+        gap: 0;
+    }
+    .btn__redden-history {
+        width: 210px;
+        display: block;
+    }
 }

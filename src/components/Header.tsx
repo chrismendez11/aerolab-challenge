@@ -39,7 +39,7 @@ const Header = ({setUser}: any) => {
     axios.get('https://coding-challenge-api.aerolab.co/user/history', getConfig())
       .then(res => {
         console.log(res.data)
-        alert('At the moment, the Reddem History is only showed in the browser console. There you can check it out')
+        alert('At the moment, the Reddem History is only showed in the browser console.')
       })
       .catch(err => console.log(err))
   }

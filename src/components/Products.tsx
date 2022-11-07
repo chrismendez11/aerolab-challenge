@@ -10,6 +10,7 @@ import axios from 'axios'
 import getConfig from '../utils/getConfig'
 import ProductDetail from './ProductDetail'
 import SearchBar from './SearchBar'
+import NoProductsFound from './NoProductsFound'
 
 type User = {
     createDate: string,
@@ -120,6 +121,7 @@ const Products = ({setUser, user}: any) => {
         setCurrentFilter(e.target.id)
     }
 
+
     return (
         <main>
             <div className='products-container'>
@@ -155,9 +157,9 @@ const Products = ({setUser, user}: any) => {
                     </div>
                     <div className='bar-line main-big'></div>
                     <div className='products__main__products-cont'>
-                        {currentProducts?.map((product: Product) => (
+                        {currentProducts.length > 0 ? currentProducts?.map((product: Product) => (
                             <ProductDetail key={product._id} product={product} user={user} getUserInfo={getUserInfo}/>
-                        ))}
+                        )) : <NoProductsFound />}
                     </div>
                     <div className='footer-main'>
                         <h2>{products.length > productsPerPage ? indexLastProduct : products.length} of {products.length} products</h2>

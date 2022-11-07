@@ -1,0 +1,16 @@
+.noProductsFound__section {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.noProductsFound__section h2 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #adb5bd;
+}
+
+.noProductsFound__section h2 span {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #343a40;
+}
